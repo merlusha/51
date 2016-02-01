@@ -10,26 +10,19 @@ import java.math.BigDecimal;
 public class SimpleInterest {
     public static void main(String[] args) {
 
-        int principalAmount = ConsoleUtil.getPositiveIntegerFromConsole("Enter the principal:");
-        String rateStr = ConsoleUtil.getStringFromConsole("Enter the rate of interest:");
-        int years = ConsoleUtil.getPositiveIntegerFromConsole("Enter the number of years:");
+        Account account = AccountInput.constructAccountFromCommandLine();
 
-        BigDecimal rate= new  BigDecimal (rateStr);
+        for(int year=1;year<=account.getYears();year++) {
 
-
-        for(int year=1;year<=years;year++) {
-
-            BigDecimal simpleInterest = calculateSimpleInterest(principalAmount, rate, year);
+            BigDecimal simpleInterest = AccountInterestCalculator.calculateSimpleInterestOnYear(account,year);
             Money simpleInterestMoney = Money.usdOf(simpleInterest);
 
-            System.out.println("After " + year + " years at " + rate.toPlainString() + "% the investment will be worth " + simpleInterestMoney);
+            System.out.println("After " + year + " years at " + account.getRateFormatted() + "% the investment will be worth " + simpleInterestMoney);
         }
 
-        System.out.println("\nAfter " + years + " years at " + rate.toPlainString() + "% the final investment will be worth " + calculateSimpleInterest(principalAmount, rate, years));
+        System.out.println("\nAfter " + account.getYears() + " years at " + account.getRateFormatted() + " the final investment will be worth " + AccountInterestCalculator.calculateSimpleInterest(account));
     }
 
-    private static BigDecimal calculateSimpleInterest(int principalAmount,BigDecimal rate,int years){
-        BigDecimal principal = BigDecimal.valueOf(principalAmount);
-        return    principal.multiply(BigDecimal.ONE.add(rate.multiply(BigDecimal.valueOf(years)).divide(BigDecimal.valueOf(100))));
-    }
+
+
 }
