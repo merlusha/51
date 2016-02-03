@@ -74,7 +74,7 @@ public class Money {
 
 
     public Money percentages(BigDecimal percentages){
-        return new Money(currency,number.multiply(percentages).divide(BigDecimal.valueOf(100), BigDecimal.ROUND_UP));
+        return new Money(currency,number.multiply(percentages).divide(BigDecimal.valueOf(100)));
     }
 
 
@@ -97,5 +97,24 @@ public class Money {
     @Override
     public String toString() {
         return currency.getCode()+number.setScale(2,BigDecimal.ROUND_HALF_UP).toPlainString();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Money money = (Money) o;
+
+        if (getCurrency() != money.getCurrency()) return false;
+        return getNumber().equals(money.getNumber());
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getCurrency().hashCode();
+        result = 31 * result + getNumber().hashCode();
+        return result;
     }
 }

@@ -7,7 +7,17 @@ public class ConsoleUtil {
 
     public static int getPositiveIntegerFromConsole(String prompt){
         String string = null;
-        while (StringUtils.isEmpty(string) || !StringUtils.isNumber(string) || Integer.valueOf(string) < 0){
+        while (StringUtils.isEmpty(string) || !StringUtils.isNumber(string) || Integer.valueOf(string) < 0 ){
+            System.out.print(prompt);
+            string = readFromConsole();
+        }
+        return  Integer.valueOf(string);
+    }
+
+
+    public static int getPositiveIntegerFromConsoleInRange(String prompt,int lowerLimit,int upperLimit){
+        String string = null;
+        while (StringUtils.isEmpty(string) || !StringUtils.isNumber(string) || Integer.valueOf(string)<lowerLimit || Integer.valueOf(string)>upperLimit){
             System.out.print(prompt);
             string = readFromConsole();
         }
@@ -54,6 +64,16 @@ public class ConsoleUtil {
         return  string;
     }
 
+
+    public static String getMaskedStringFromConsole(String prompt){
+        String string = null;
+        while (StringUtils.isEmpty(string)){
+            System.out.print(prompt);
+            char[] password=  System.console().readPassword();
+            string = new String(password);
+        }
+        return  string;
+    }
 
     private static String readFromConsole() {
         return System.console().readLine();

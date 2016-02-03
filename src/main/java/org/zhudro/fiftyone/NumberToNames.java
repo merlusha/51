@@ -8,7 +8,9 @@ import org.zhudro.fiftyone.ConsoleUtil;
 public class NumberToNames {
     public static void main(String[] args) {
         int month = ConsoleUtil.getPositiveIntegerFromConsoleInRange("Please enter month number? ",1,12);
+
         String monthDesc = null;
+
         switch (month){
             case 1:monthDesc="January";break;
             case 2:monthDesc="February";break;
@@ -27,4 +29,5 @@ public class NumberToNames {
         }
         System.out.println(month+" month is:"+monthDesc);
     }
+
 }
