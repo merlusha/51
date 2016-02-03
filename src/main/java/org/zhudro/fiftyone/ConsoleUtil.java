@@ -14,6 +14,14 @@ public class ConsoleUtil {
         return  Integer.valueOf(string);
     }
 
+    public static int getIntegerFromConsole(String prompt){
+        String string = null;
+        while (StringUtils.isEmpty(string) || !StringUtils.isNumber(string)  ){
+            System.out.print(prompt);
+            string = readFromConsole();
+        }
+        return  Integer.valueOf(string);
+    }
 
     public static int getPositiveIntegerFromConsoleInRange(String prompt,int lowerLimit,int upperLimit){
         String string = null;
@@ -77,5 +85,22 @@ public class ConsoleUtil {
 
     private static String readFromConsole() {
         return System.console().readLine();
+    }
+
+    public static String getStringFromConsole(String prompt, String ... choices) {
+        String string = null;
+        while (StringUtils.isEmpty(string) || !contains(string,choices)){
+            System.out.print(prompt);
+            string = readFromConsole();
+        }
+        return  string;
+    }
+    private static boolean contains(String choice,String ... choices){
+        for (String s:choices){
+            if(s.equals(choice)){
+                return true;
+            }
+        }
+        return false;
     }
 }
