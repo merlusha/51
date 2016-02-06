@@ -63,6 +63,22 @@ public class ConsoleUtil {
 
     }
 
+    private static boolean toBool(String str) {
+        if (str == null || str.isEmpty()) {
+            return false;
+        }
+        String s = str.toLowerCase();
+        switch (s) {
+            case "true":return true;
+            case "false":return false;
+            case "yes":return true;
+            case "no":return false;
+            case "y":return true;
+            case "n":return false;
+        }
+        return false;
+    }
+
     public static String getStringFromConsole(String prompt){
         String string = null;
         while (StringUtils.isEmpty(string)){
@@ -72,6 +88,9 @@ public class ConsoleUtil {
         return  string;
     }
 
+    public static boolean getBoolFromConsole(String str){
+        return toBool(getStringFromConsole(str,"true","false","yes","no","y","n"));
+    }
 
     public static String getMaskedStringFromConsole(String prompt){
         String string = null;
@@ -97,7 +116,7 @@ public class ConsoleUtil {
     }
     private static boolean contains(String choice,String ... choices){
         for (String s:choices){
-            if(s.equals(choice)){
+            if(s.equalsIgnoreCase(choice)){
                 return true;
             }
         }
